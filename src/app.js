@@ -14,5 +14,4 @@ app.use('/api/carts', routerCart);
 
 app.listen(PORT, () => {
 	console.log(`Servidor desde puerto: ${PORT}`);
-	console.log(`http://localhost:${PORT}`);
 });

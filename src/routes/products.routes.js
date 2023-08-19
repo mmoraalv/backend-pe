@@ -6,17 +6,14 @@ const productManager = new ProductManager('./src/models/products.json');
 
 routerProd.get('/', async (req, res) => {
 	const { limit } = req.query;
-
 	const prods = await productManager.getProducts();
 	const productos = prods.slice(0, limit);
-
 	res.status(200).send(productos);
 });
 
 routerProd.get('/:pid', async (req, res) => {
 	const { pid } = req.params;
 	const prod = await productManager.getProductById(parseInt(pid));
-
 	prod ? res.status(200).send(prod) : res.status(404).send('Producto no existente');
 });
 

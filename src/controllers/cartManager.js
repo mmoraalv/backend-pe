@@ -1,24 +1,20 @@
 import { promises as fs } from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 export class CartManager {
-	constructor(cartsPath, productsPath) {
-		this.carts = [];
-		this.cartsPath = cartsPath;
-		this.productsPath = productsPath;
-	}
+    constructor(cartsPath, productsPath) {
+        this.carts = [];
+        this.cartsPath = cartsPath;
+        this.productsPath = productsPath;
+    }
 
-	static incrementarID() {
-		this.idIncrement ? this.idIncrement++ : (this.idIncrement = 1);
-		return this.idIncrement;
-	}
-
-	async createCart() {
-		this.carts = JSON.parse(await fs.readFile(this.cartsPath, 'utf-8'));
-		const newCart = { id: CartManager.incrementarID(), products: [] };
-		this.carts.push(newCart);
-		const writeCarts = JSON.stringify(this.carts);
-		await fs.writeFile(this.cartsPath, writeCarts);
-	}
+    async createCart() {
+        this.carts = JSON.parse(await fs.readFile(this.cartsPath, 'utf-8'));
+        const newCart = { id: uuidv4(), products: [] };
+        this.carts.push(newCart);
+        const writeCarts = JSON.stringify(this.carts);
+        await fs.writeFile(this.cartsPath, writeCarts);
+    }
 
 	async getProductsFromCart(id) {
 		this.carts = JSON.parse(await fs.readFile(this.cartsPath, 'utf-8'));

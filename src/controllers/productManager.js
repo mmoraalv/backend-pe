@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { promises as fs } from 'fs';
 
 export class ProductManager {
@@ -8,11 +9,11 @@ export class ProductManager {
 
 	async addProduct(product) {
 		this.products = JSON.parse(await fs.readFile(this.path, 'utf-8'));
-		const { title, description, price, code, stock, status } = product;
+		const { title, description, price, code, stock, status, category, thumbnails } = product;
 
-		if (!title || !description || !price || !status || !code || !stock) {
+		if (!title || !description || !price || !status || !code || !stock || !category || !thumbnails) {
 			console.log(
-				'El producto debe incluir los campos title, description, price, status, code y stock'
+				'El producto debe incluir los campos title, description, price, status, code, stock, category y thumbnails'
 			);
 			return;
 		}
@@ -21,7 +22,7 @@ export class ProductManager {
 		if (prodExists) {
 			return false;
 		} else {
-			product.id = ProductManager.incrementarID();
+			product.id = uuidv4();
 			product.status = true;
 			this.products.push(product);
 		}
@@ -71,4 +72,3 @@ export class ProductManager {
 		return this.idIncrement;
 	}
 }
-
