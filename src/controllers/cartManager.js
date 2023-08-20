@@ -2,12 +2,12 @@ import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 
 export class CartManager {
-    constructor(cartsPath, productsPath) {
+	constructor(cartsPath) {
         this.carts = [];
         this.cartsPath = cartsPath;
-        this.productsPath = productsPath;
+        this.productsPath = "./src/models/products.json";
     }
-
+	
     async createCart() {
         this.carts = JSON.parse(await fs.readFile(this.cartsPath, 'utf-8'));
         const newCart = { id: uuidv4(), products: [] };

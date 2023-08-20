@@ -13,7 +13,7 @@ routerProd.get('/', async (req, res) => {
 
 routerProd.get('/:pid', async (req, res) => {
 	const { pid } = req.params;
-	const prod = await productManager.getProductById(parseInt(pid));
+	const prod = await productManager.getProductById(pid);
 	prod ? res.status(200).send(prod) : res.status(404).send('Producto no existente');
 });
 
@@ -26,7 +26,7 @@ routerProd.post('/', async (req, res) => {
 
 routerProd.put('/:pid', async (req, res) => {
 	const { pid } = req.params;
-	const confirmacion = await productManager.updateProducts(parseInt(pid), req.body);
+	const confirmacion = await productManager.updateProducts(pid, req.body);
 	confirmacion
 		? res.status(200).send('Producto actualizado correctamente')
 		: res.status(400).send('Producto ya existente');
@@ -34,7 +34,7 @@ routerProd.put('/:pid', async (req, res) => {
 
 routerProd.delete('/:pid', async (req, res) => {
 	const { pid } = req.params;
-	const confirmacion = await productManager.deleteProduct(parseInt(pid));
+	const confirmacion = await productManager.deleteProduct(pid);
 	confirmacion
 		? res.status(200).send('Producto eliminado correctamente')
 		: res.status(404).send('Producto no encontrado');
